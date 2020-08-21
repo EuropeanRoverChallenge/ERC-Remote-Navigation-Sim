@@ -11,6 +11,10 @@ repositories:
     type: git
     url: https://github.com/LeoRover/leo_viz.git
     version: master
+  src/leo_teleop:
+    type: git
+    url: https://github.com/LeoRover/leo_teleop.git
+    version: master
   src/marsyard:
     type: git
     url: https://github.com/fictionlab/marsyard.git
