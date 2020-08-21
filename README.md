@@ -69,6 +69,7 @@ The command mapping was set for the Xbox 360 controller and looks like this:
 | RB button                 | enable - hold it to send commands |
 | Left joystick Up/Down     | linear velocity                   |
 | Right Joystick Left/Right | angular velocity                  |
+
 To modify it, you can edit the `joy_mapping.yaml` file inside the `leo_teleop` package.
 
 ## ROS API
