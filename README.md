@@ -39,7 +39,22 @@ The list of the repositories may change, so make sure you have pulled the latest
 ```
 git pull
 ```
-Then, repeat the steps described at the `Building` section.
+Use `vcstool` tool to clone any new repositories:
+```
+vcs import < leo-erc.repos
+```
+And pull the new commits on the already cloned ones:
+```
+vcs pull src
+```
+Then, make sure you have all the dependencies installed:
+```
+rosdep install --rosdistro melodic --from-paths src -iy
+```
+And rebuild the workspace:
+```
+catkin build
+```
 
 ## Launching
 
