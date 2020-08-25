@@ -1,10 +1,11 @@
 FROM osrf/ros:melodic-desktop
 
-# Update packages
-RUN apt-get update && apt-get upgrade -y
-
 # Install some tools
-RUN apt-get install -y python-rosdep python-catkin-tools python-vcstool
+RUN apt-get update && apt-get install -y \
+    python-rosdep \
+    python-catkin-tools \
+    python-vcstool \
+  && rm -rf /var/lib/apt/lists/*
 
 # Clone the source code
 WORKDIR /sim_ws
