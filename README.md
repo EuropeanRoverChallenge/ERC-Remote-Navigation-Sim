@@ -4,12 +4,14 @@ This repository aims to provide instructions on how to install and use the Leo R
 
 ## Requirements
 
-The simulation is mainly developed and tested on [Ubuntu 18.04 Bionic Beaver](https://releases.ubuntu.com/18.04/) with [ROS Melodic Morenia](http://wiki.ros.org/melodic/Installation/Ubuntu), so it is a recommended setup.
+The simulation is mainly developed and tested on [Ubuntu 18.04 Bionic Beaver](https://releases.ubuntu.com/18.04/) with [ROS Melodic Morenia](http://wiki.ros.org/melodic/Installation/Ubuntu), so it is a recommended setup. 
 
 The rest of the tools used in this guide can be installed with apt:
 ```
 sudo apt install python-rosdep python-catkin-tools python-vcstool
 ```
+
+There is also a dockerized version which should work on most Linux distributions running X Window Server (See [Using Docker](#using-docker) section).
 
 ## Building
 
@@ -125,6 +127,46 @@ The following topics and parameters are available on both the simulation and the
 * **`robot_description`** (type: `str`)
 
     The URDF model of the robot
+
+## Using Docker
+
+---
+**NOTE**
+
+The commands in this section should be executed as the `root` user, unless you have configured docker to be [managable as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/).
+
+---
+
+Make sure the [Docker Engine](https://docs.docker.com/engine/install/#server) is installed and the `docker` service is running:
+```
+systemctl start docker
+```
+Build the docker image by executing:
+```
+docker build -t erc_img .
+```
+Permit the root user to connect to X window display:
+```
+xhost +local:root
+```
+Start the docker container:
+```
+docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY erc_sim
+```
+If you want the simulation to be able to communicate with ROS nodes running on the host or another docker container, add `--net=host` flag:
+```
+docker run --rm --net=host -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY erc_sim
+```
+Gazebo can work really slow without the GPU acceleration. \
+If you are running the system on an integrated AMD/Intel Graphics card, try adding `--device=/dev/dri` flag:
+```
+docker run --rm --device=/dev/dri -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY erc_sim
+```
+To use an Nvidia card, you need to have proprietary drivers installed, as well as the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker). \
+Add the `--gpus all` flag and set `NVIDIA_DRIVER_CAPABILITIES` variable to `all`:
+```
+docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all erc_sim
+```
 
 [geometry_msgs/Twist]: http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
 [geometry_msgs/TwistStamped]: http://docs.ros.org/api/geometry_msgs/html/msg/TwistStamped.html
