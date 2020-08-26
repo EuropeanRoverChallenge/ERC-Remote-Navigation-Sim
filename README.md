@@ -175,6 +175,10 @@ For example:
 ```
 docker exec -it erc_sim /ros_entrypoint.sh roslaunch leo_viz rviz.launch
 ```
+To update the docker image, you need to rebuild it with `--no-cache` option:
+```
+docker build --no-cache -t erc_img .
+```
 
 [geometry_msgs/Twist]: http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
 [geometry_msgs/TwistStamped]: http://docs.ros.org/api/geometry_msgs/html/msg/TwistStamped.html
