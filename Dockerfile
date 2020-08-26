@@ -13,7 +13,7 @@ COPY leo-erc.repos ./
 RUN vcs import < leo-erc.repos
 
 # Install dependencies
-RUN rosdep update && rosdep install --from-paths src -iy
+RUN apt-get update && rosdep update && rosdep install --from-paths src -iy
 
 # Build the workspace
 RUN catkin config --extend /opt/ros/melodic --install -i /opt/ros/leo-sim && catkin build
