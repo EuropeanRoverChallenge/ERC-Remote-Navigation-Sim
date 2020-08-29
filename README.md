@@ -108,25 +108,73 @@ The following topics and parameters are available on both the simulation and the
 
 * **`joint_states`** ([sensor_msgs/JointState])
 
-    Current state of the joints. 
+    Current state of the joints.
 
 * **`camera/image_raw`** ([sensor_msgs/Image])
 
-    Raw images from the hazard avoidance camera
+    Unrectified images from the hazard avoidance camera.
 
 * **`camera/image_raw/compressed`** ([sensor_msgs/CompressedImage])
 
-    JPEG-compressed images from the hazard avoidance camera
+    JPEG-compressed images from the hazard avoidance camera.
 
 * **`camera/camera_info`** ([sensor_msgs/CameraInfo])
 
-    Meta information for the hazard avoidance camera (see [image_pipeline/CameraInfo]).
+    Calibration data for the hazard avoidance camera (see [image_pipeline/CameraInfo]).
+
+* **`zed2/left_raw/image_raw_color`** ([sensor_msgs/Image])
+
+    Unrectified color images from the left ZED2 camera.
+
+* **`zed2/left_raw/camera_info`** ([sensor_msgs/CameraInfo])
+
+    Calibration data for the left ZED2 unrectified camera.
+
+* **`zed2/left/image_rect_color`** ([sensor_msgs/Image])
+
+    Rectified color images from the left ZED2 camera.
+
+* **`zed2/left/camera_info`** ([sensor_msgs/CameraInfo])
+
+    Calibration data for the left ZED2 camera.
+
+* **`zed2/right_raw/image_raw_color`** ([sensor_msgs/Image])
+
+    Unrectified color images from the right ZED2 camera.
+
+* **`zed2/right_raw/camera_info`** ([sensor_msgs/CameraInfo])
+
+    Calibration data for the right ZED2 unrectified camera.
+
+* **`zed2/right/image_rect_color`** ([sensor_msgs/Image])
+
+    Rectified color images from the right ZED2 camera.
+
+* **`zed2/right/camera_info`** ([sensor_msgs/CameraInfo])
+
+    Calibration data for the right ZED2 camera.
+
+* **`zed2/depth/depth_registered`** ([sensor_msgs/Image])
+
+    Depth map image registered on left ZED2 camera image.
+
+* **`zed2/depth/camera_info`** ([sensor_msgs/CameraInfo])
+
+    Depth camera calibration data.
+
+* **`zed2/point_cloud/cloud_registered`** ([sensor_msgs/PointCloud2])
+
+    Registered color point cloud.
+
+* **`zed2/imu/data`** ([sensor_msgs/Imu])
+
+    Accelerometer, gyroscope, and orientation data from ZED2 IMU.
 
 ### Parameters set
 
 * **`robot_description`** (type: `str`)
 
-    The URDF model of the robot
+    The URDF model of the robot.
 
 ## Using Docker
 
@@ -187,3 +235,5 @@ docker build --no-cache -t erc_img .
 [sensor_msgs/CompressedImage]: http://docs.ros.org/api/sensor_msgs/html/msg/CompressedImage.html
 [sensor_msgs/CameraInfo]: http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html
 [image_pipeline/CameraInfo]: http://wiki.ros.org/image_pipeline/CameraInfo
+[sensor_msgs/PointCloud2]: http://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html
+[sensor_msgs/Imu]: http://docs.ros.org/api/sensor_msgs/html/msg/Imu.html
