@@ -225,7 +225,7 @@ docker exec -it erc_sim /ros_entrypoint.sh roslaunch leo_viz rviz.launch
 ```
 To update the docker image, you need to rebuild it with `--no-cache` option:
 ```
-docker build --no-cache -t erc_img .
+docker build --no-cache -t erc_sim .
 ```
 
 [geometry_msgs/Twist]: http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
