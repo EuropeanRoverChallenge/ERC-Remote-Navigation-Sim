@@ -191,7 +191,7 @@ systemctl start docker
 ```
 Build the docker image by executing:
 ```
-docker build -t erc_img .
+docker build -t erc_sim .
 ```
 Permit the root user to connect to X window display:
 ```
