@@ -208,12 +208,12 @@ docker run --rm --net=host -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --nam
 Gazebo can work really slow without the GPU acceleration. \
 If you are running the system on an integrated AMD/Intel Graphics card, try adding `--device=/dev/dri` flag:
 ```
-docker run --rm --device=/dev/dri -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --name erc_sim  erc_sim
+docker run --rm --net=host --device=/dev/dri -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --name erc_sim  erc_sim
 ```
 To use an Nvidia card, you need to have proprietary drivers installed, as well as the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker). \
 Add the `--gpus all` flag and set `NVIDIA_DRIVER_CAPABILITIES` variable to `all`:
 ```
-docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --name erc_sim erc_sim
+docker run --rm --net=host -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --name erc_sim erc_sim
 ```
 To start any other ROS nodes inside the container, type:
 ```
@@ -226,6 +226,14 @@ docker exec -it erc_sim /ros_entrypoint.sh roslaunch leo_viz rviz.launch
 To update the docker image, you need to rebuild it with `--no-cache` option:
 ```
 docker build --no-cache -t erc_sim .
+```
+## Troubleshooting
+
+---
+* ### D-Bus error
+The D-Bus error may occure while trying to launch gazebo. To solve the problem use `--privileged` flag, it gives extended privileges to this container.
+```
+docker run --rm --net=host -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --privileged --name erc_sim erc_sim
 ```
 
 [geometry_msgs/Twist]: http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
