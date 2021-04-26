@@ -1,0 +1,6 @@
+[submodule "src/leo_erc_desktop"]
+	path = src/leo_erc_desktop
+	url = https://github.com/LeoRover/leo_erc_desktop.git
+[submodule "src/leo_erc_common"]
+	path = src/leo_erc_common
+	url = https://github.com/LeoRover/leo_erc_common.git
