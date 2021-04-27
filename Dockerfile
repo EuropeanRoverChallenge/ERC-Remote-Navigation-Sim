@@ -4,13 +4,11 @@ FROM osrf/ros:melodic-desktop
 RUN apt-get update && apt-get -y upgrade && apt-get install -y \
     python-rosdep \
     python-catkin-tools \
-    python-vcstool \
   && rm -rf /var/lib/apt/lists/*
 
 # Clone the source code
 WORKDIR /sim_ws
-COPY leo-erc.repos ./
-RUN vcs import < leo-erc.repos
+COPY src ./src
 
 # Install dependencies
 RUN apt-get update \
@@ -25,4 +23,4 @@ RUN catkin config --extend /opt/ros/melodic --install -i /opt/ros/leo-sim && cat
 RUN sed -i "s|\$ROS_DISTRO|leo-sim|" /ros_entrypoint.sh
 
 # Run launch file
-CMD ["roslaunch", "leo_gazebo", "leo_marsyard.launch"]
+CMD ["roslaunch", "leo_erc_gazebo", "leo_marsyard.launch"]
