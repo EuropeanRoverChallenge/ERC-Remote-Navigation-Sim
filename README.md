@@ -280,7 +280,7 @@ This section describes ROS topics, services and parameters that are available on
 
 * **`probe_deployment_unit/probes_dropped`** ([std_msgs/UInt8])
 
-    The actual probes number dropped. 
+    The actual number of probes dropped. 
 
 ### Services
 
@@ -290,7 +290,8 @@ This section describes ROS topics, services and parameters that are available on
 
 * **`probe_deployment_unit/home`** ([std_srvs/Trigger])
 
-    Removes probes dropped in the simulation world.
+    Resets the PDU. In the simulation, it removes dropped probe models and resets the counter.
+    **Warning:** Don't use this on the real robot during the competition.
 
 ### Parameters set
 
