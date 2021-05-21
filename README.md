@@ -192,6 +192,10 @@ This section describes ROS topics, services and parameters that are available on
 
     Resets the odometry published on the `zed2/odom` topic.
 
+* **`probe_deployment_unit/drop`** ([std_msgs/Empty])
+
+    Spawn probe model.
+
 ### Published topics
 
 * **`wheel_odom`** ([geometry_msgs/TwistStamped])
@@ -274,17 +278,33 @@ This section describes ROS topics, services and parameters that are available on
 
     The actual position of the robot on the terrain. It may be useful for validating performance of a global localization solution.
 
+* **`probe_deployment_unit/probes_dropped`** ([std_msgs/UInt8])
+
+    The actual probes number dropped. 
+
 ### Services
 
 * **`core2/reset_odometry`** ([std_srvs/Trigger])
 
-    Resets the pose published on the `wheel_pose` topic
+    Resets the pose published on the `wheel_pose` topic.
+
+* **`probe_deployment_unit/home`** ([std_srvs/Trigger])
+
+    Removes probes dropped in the simulation world.
 
 ### Parameters set
 
 * **`robot_description`** (type: `str`)
 
     The URDF model of the robot.
+
+* **`probe_description`** (type: `str`) **(Only in the simulation)**
+
+    The URDF model of probe.
+
+* **`pdu_node/probe_spawn_translation/x | y | z`** (type: `int`) **(Only in the simulation)**
+
+    Probe spawn point translation from base_footprint frame.
 
 [geometry_msgs/Twist]: http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
 [geometry_msgs/TwistStamped]: http://docs.ros.org/api/geometry_msgs/html/msg/TwistStamped.html
@@ -298,6 +318,7 @@ This section describes ROS topics, services and parameters that are available on
 [sensor_msgs/Imu]: http://docs.ros.org/api/sensor_msgs/html/msg/Imu.html
 [nav_msgs/Odometry]: http://docs.ros.org/en/api/nav_msgs/html/msg/Odometry.html
 [std_msgs/Empty]: http://docs.ros.org/en/melodic/api/std_msgs/html/msg/Empty.html
+[std_msgs/UInt8]: http://docs.ros.org/en/melodic/api/std_msgs/html/msg/UInt8.html
 [std_srvs/Trigger]: http://docs.ros.org/en/api/std_srvs/html/srv/Trigger.html
 
 ## Troubleshooting
