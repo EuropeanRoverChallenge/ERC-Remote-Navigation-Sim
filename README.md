@@ -301,11 +301,11 @@ This section describes ROS topics, services and parameters that are available on
 
 * **`probe_description`** (type: `str`) **(Only in the simulation)**
 
-    The URDF model of probe.
+    The URDF model of the probe.
 
-* **`pdu_node/probe_spawn_translation/x | y | z`** (type: `int`) **(Only in the simulation)**
+* **`pdu_node/probe_spawn_translation/x | y | z`** (type: `double`) **(Only in the simulation)**
 
-    Probe spawn point translation from base_footprint frame.
+    Probe spawn point translation from the base_footprint frame.
 
 [geometry_msgs/Twist]: http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html
 [geometry_msgs/TwistStamped]: http://docs.ros.org/api/geometry_msgs/html/msg/TwistStamped.html
