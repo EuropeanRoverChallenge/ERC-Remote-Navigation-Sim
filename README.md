@@ -303,7 +303,7 @@ This section describes ROS topics, services and parameters that are available on
 
     The URDF model of the probe.
 
-* **`pdu_node/probe_spawn_translation/x | y | z`** (type: `double`) **(Only in the simulation)**
+* **`pdu_node/probe_spawn_translation/x | y | z`** (type: `float`) **(Only in the simulation)**
 
     Probe spawn point translation from the base_footprint frame.
 
