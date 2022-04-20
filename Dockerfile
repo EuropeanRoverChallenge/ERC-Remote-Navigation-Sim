@@ -1,9 +1,9 @@
-FROM osrf/ros:melodic-desktop
+FROM osrf/ros:noetic-desktop
 
 # Upgrade packages and install some tools
 RUN apt-get update && apt-get -y upgrade && apt-get install -y \
-    python-rosdep \
-    python-catkin-tools \
+    python3-rosdep \
+    python3-catkin-tools \
   && rm -rf /var/lib/apt/lists/*
 
 # Clone the source code
@@ -17,7 +17,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Build the workspace
-RUN catkin config --extend /opt/ros/melodic --install -i /opt/ros/leo-sim \
+RUN catkin config --extend /opt/ros/noetic --install -i /opt/ros/leo-sim \
   && catkin build --no-status
 
 # Modify the entrypoint file
