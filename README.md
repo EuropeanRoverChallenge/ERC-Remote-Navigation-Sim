@@ -198,7 +198,7 @@ This section describes ROS topics, services and parameters that are available on
 
 * **`imu/data_raw`** ([sensor_msgs/Imu])
 
-    Curent IMU data.
+    Accelerometer and gyroscope data from built-in module.
 
 * **`joint_states`** ([sensor_msgs/JointState])
 
