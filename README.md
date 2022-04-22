@@ -192,13 +192,13 @@ This section describes ROS topics, services and parameters that are available on
 
 ### Published topics
 
-* **`wheel_odom`** ([geometry_msgs/TwistStamped])
+* **`wheel_odom_with_covariance`** ([nav_msgs/Odometry])
 
     Current linear and angular velocities of the robot estimated from wheel velocities.
 
-* **`wheel_pose`** ([geometry_msgs/PoseStamped])
+* **`imu/data_raw`** ([sensor_msgs/Imu])
 
-    A 2D pose of the robot estimated from the wheel velocities.
+    Curent IMU data.
 
 * **`joint_states`** ([sensor_msgs/JointState])
 
@@ -315,6 +315,7 @@ This section describes ROS topics, services and parameters that are available on
 [std_msgs/Empty]: http://docs.ros.org/en/melodic/api/std_msgs/html/msg/Empty.html
 [std_msgs/UInt8]: http://docs.ros.org/en/melodic/api/std_msgs/html/msg/UInt8.html
 [std_srvs/Trigger]: http://docs.ros.org/en/api/std_srvs/html/srv/Trigger.html
+[std_msgs/Float32]: http://docs.ros.org/en/noetic/api/std_msgs/html/msg/Float32.html
 
 ## Troubleshooting
 
