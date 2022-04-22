@@ -18,25 +18,17 @@ For the dockerized version, skip to the [Using Docker](#using-docker) section.
 
 ## Prerequisites
 
-The simulation requires ROS (Robot Operating System) and was mainly developed and tested with these distributions:
- - [ROS Melodic Morenia](http://wiki.ros.org/melodic/Installation/) on [Ubuntu 18.04 Bionic Beaver](https://releases.ubuntu.com/18.04/)
- - [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/) on [Ubuntu 20.04 Focal Fossa](https://releases.ubuntu.com/20.04/)
+The current version of the simulation targets [ROS Noetic Ninjemys](http://wiki.ros.org/noetic/Installation/) distribution and was mainly developed and tested on [Ubuntu 20.04 Focal Fossa](https://releases.ubuntu.com/20.04/).
 
-Other distributions might not work properly so it is recommended to use one of these two setups. \
-The guide will refer to the distribution of your choice (for example, `melodic` or `noetic`) as `<distro>`.
-
-The rest of the tools used in this guide can be installed with apt:
+The tools necessary to build this project can be installed with apt:
 ```sh
-# if using ROS Melodic
-sudo apt install python-rosdep python-catkin-tools
-# if using ROS Noetic
 sudo apt install python3-rosdep python3-catkin-tools
 ```
 
 ## Building
 This repository uses git submodules to link external repositories that contain the ROS packages. \
 When cloning this repository, add the `--recurse-submodules` flag to recursively pull the submodules:
-```
+```sh
 git clone --recurse-submodules https://github.com/EuropeanRoverChallenge/ERC-Remote-Navigation-Sim.git
 ```
 or if you have already cloned the repository without this option, clone the submodules using:
@@ -51,11 +43,11 @@ first. Then, to install the dependencies, type:
 ```sh
 rosdep update
 sudo apt update
-rosdep install --rosdistro <distro> --from-paths src -iy
+rosdep install --rosdistro noetic --from-paths src -iy
 ```
 Now, use the `catkin` tool to build the workspace:
 ```sh
-catkin config --extend /opt/ros/<distro>
+catkin config --extend /opt/ros/noetic
 catkin build
 ```
 
@@ -70,51 +62,53 @@ If you have already pulled the new commits without the `--recurse-submodules` fl
 git submodule update --init
 ```
 
-Make sure you have installed any additional dependencies the new versions of the packages may have pulled by running the `rosdep install` command again:
-```
-rosdep install --rosdistro <distro> --from-paths src -iy
+The new versions of the packages may have added some new dependencies so make sure to install them by running `rosdep install` command again:
+```sh
+rosdep install --rosdistro noetic --from-paths src -iy
 ```
 
 And rebuild the workspace:
-```
+```sh
 catkin build
 ```
 
 ## Launching
 
 Make sure you source the devel space on each terminal session you want to use the simulation on:
-```
+```sh
 source devel/setup.bash
 ```
 
 To start the simulation and gazebo GUI, type:
-```
+```sh
 roslaunch leo_erc_gazebo leo_marsyard.launch
 ```
 
 To visualize the model in Rviz, type on another terminal session:
-```
+```sh
 roslaunch leo_erc_viz rviz.launch
 ```
 
-Turn on the `Image` panel in Rviz to show the simulated camera images.
+The `HazCam` and `NavCam` displays should show the images from the simulated cameras.
 
 To test teleoperation with a keyboard, you can run the `key_teleop` node:
-```
+```sh
 rosrun leo_erc_teleop key_teleop
 ```
 
 To control the Rover using a joystick, type:
-```
+```sh
 roslaunch leo_erc_teleop joy_teleop.launch
 ```
 
 The command mapping was set for the Xbox 360 controller and looks like this:
-| Xbox 360 controller       | Command                           |
-|---------------------------|-----------------------------------|
-| RB button                 | enable - hold it to send commands |
-| Left joystick Up/Down     | linear velocity                   |
-| Right Joystick Left/Right | angular velocity                  |
+| Xbox 360 controller       | Command                                |
+|---------------------------|----------------------------------------|
+| RB button                 | enable - hold it to send commands      |
+| Left joystick Up/Down     | linear velocity                        |
+| Right Joystick Left/Right | angular velocity                       |
+| A button                  | drop the next probe                    |
+| B button                  | despawn probes and reset probe counter |
 
 To modify it, you can edit the `joy_mapping.yaml` file inside the `leo_erc_teleop` package.
 
@@ -128,50 +122,50 @@ All of the commands in this section should be executed as the `root` user, unles
 ---
 
 Make sure the [Docker Engine](https://docs.docker.com/engine/install/#server) is installed and the `docker` service is running:
-```
+```sh
 systemctl start docker
 ```
 
 Then, either pull the newest prebuilt Docker image:
-```
+```sh
 docker pull ghcr.io/europeanroverchallenge/erc-remote-navigation-sim:latest
 docker tag ghcr.io/europeanroverchallenge/erc-remote-navigation-sim:latest erc_navigation_sim
 ```
 
 or build the image yourself:
-```
+```sh
 docker build -t erc_navigation_sim .
 ```
 
 Permit the root user to connect to X window display:
-```
+```sh
 xhost +local:root
 ```
 
 Start the docker container:
-```
+```sh
 docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --name erc_sim erc_navigation_sim
 ```
 
 If you want the simulation to be able to communicate with ROS nodes running on the host or another docker container, add `--net=host` flag:
-```
+```sh
 docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --name erc_sim --net=host erc_navigation_sim
 ```
 
 Gazebo may not run or work really slow without the GPU acceleration. \
 If you are running the system with an integrated AMD/Intel Graphics card, try adding `--device=/dev/dri` flag:
-```
+```sh
 docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --name erc_sim --device=/dev/dri erc_navigation_sim
 ```
 
 To use an Nvidia card, you need to have proprietary drivers installed, as well as the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker). \
 Add the `--gpus all` flag and set `NVIDIA_DRIVER_CAPABILITIES` variable to `all`:
-```
+```sh
 docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY --name erc_sim --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all erc_navigation_sim
 ```
 
 To use the other ROS packages, start `bash` inside the running container:
-```
+```sh
 docker exec -it erc_sim /ros_entrypoint.sh bash
 ```
 
