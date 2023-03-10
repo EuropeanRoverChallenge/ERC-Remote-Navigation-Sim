@@ -3,12 +3,12 @@ _Based on: [these instructions](https://www.leorover.tech/integrations/erc-gazeb
 ## Setup
 1. Open Terminal and download this repository:
 ```
-git clone https://github.com/fszewczyk/ERC-Remote-Navigation-Sim.git
+git clone https://github.com/makercie-rug/leo-rover-simulation.git
 ```
 
 2. Enter the code directory
 ```
-cd ERC-Remote-Navigation-Sim
+cd leo-rover-simulation
 ```
 
 3. Run setup script
@@ -17,14 +17,32 @@ source ./setup.sh
 ```
 
 ## Running LEO Simuation
-1. Open Gazebo and rViz
+1. Setup your `run.sh` script to be executable.
+```sh
+chmod +x run.sh
 ```
-source ./run.sh
-```
+This is only required once.
 
-2. If you want to enable teleop using keyboard, run in a seperate terminal:
+2. Run the `./run.sh` in terminal:
 ```
-rosrun leo_erc_teleop key_teleop
+Example:
+  ./run.sh -g
+
+Note: Script can only turn on one option at a time.
+
+Options:
+-h or --help
+  Help information
+
+-g or --gazebo
+  Run Gazebo simulation of LEO Rover
+
+-r or --rviz
+  Run rViz simulation of LEO Rover.
+Note that Gazebo needs to be already running for rVziz to work correctly.
+
+-tp or --teleop
+  Run tele-operation of LEO Rover using keyboard
 ```
 
 # ERC Remote Navigation Simulation
