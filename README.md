@@ -1,9 +1,9 @@
 # Makercie instructions
 _Based on: [these instructions](https://www.leorover.tech/integrations/erc-gazebo#toc-list-of-components)_
 ## Setup
-1. Open Terminal and download this repository:
+1. Enter a chosen directory. **It must be outsde of your `catkin_ws` folder!** Open Terminal and download this repository:
 ```
-git clone https://github.com/makercie-rug/leo-rover-simulation.git
+git clone --recursive https://github.com/makercie-rug/leo-rover-simulation.git
 ```
 
 2. Enter the code directory
